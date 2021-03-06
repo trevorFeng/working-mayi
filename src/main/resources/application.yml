@@ -1,0 +1,78 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    druid:
+      payment:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        type: com.alibaba.druid.pool.xa.DruidXADataSource
+        url: jdbc:mysql://192.168.236.100:3306/payment?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&characterEncoding=utf8
+        username: root
+        password: root
+        initial-size: 5
+        max-active: 20
+        min-idle: 1
+        max-wait: 60000
+        time-between-eviction-runs-millis: 60000
+        min-evictable-idle-time-millis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+        filters: stat,wall,slf4j
+        connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      crediting:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        type: com.alibaba.druid.pool.xa.DruidXADataSource
+        url: jdbc:mysql://192.168.236.100:3306/creiting?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&characterEncoding=utf8
+        username: root
+        password: root
+        initial-size: 5
+        max-active: 20
+        min-idle: 1
+        max-wait: 60000
+        time-between-eviction-runs-millis: 60000
+        min-evictable-idle-time-millis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+        filters: stat,wall,slf4j
+        connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  application:
+    name: SpringBootApiStarter
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 30MB
+      max-request-size: 30MB
+
+mybatis-plus:
+  mapper-locations: classpath:/payment-mapper/*.xml
+  typeAliasesPackage: com.mayi.transfer.domain
+  global-config:
+    db-config:
+      id-type: id_worker
+      field-strategy: not_empty
+      column-underline: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+spring-boot-api:
+  jwt:
+    secret: sS8yq0!gukLUZ^r$UQgJ2Cd&@3DkT%J96A3XScNwYE*1^SkoV
+    expire-second: 300
+
+logging:
+  level:
+    root: info
+    com.mayi.transfer: DEBUG
+    org.springframework: ERROR
+    org.hiberbate: ERROR
